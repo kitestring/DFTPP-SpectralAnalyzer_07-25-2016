@@ -34,7 +34,7 @@ Application Description:
 
 This application has two basic functionalities: 
 
-1) Mine the appropriate spectral data from the text files and load it into a SQL database.  
+1) Mine the appropriate spectral data from the text files exported from our chemical analyzers and load it into a SQL database.  
 2) Create data visualizations in new excel file by utilizing the xlswriter python library. 
 
 Having the ability to continually append the SQL database each day of the investigation, and subsequently, generate new excel files with the latest data, allowed me monitor the data during the course of the experiment.  This turned out to be a critical advantage as I was able to very quickly and easily identify and address any anomalous behavior that popped during the course of the investigation.
