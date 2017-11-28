@@ -1,7 +1,7 @@
 import wx
 import time
-from SQLite_API_1 import Database 
-from XlsxWriter_2 import ExcelFile
+from sqliteapi import Database 
+from excelwriter import ExcelFile
 import sqlite3
 from subprocess import call
 import datetime
