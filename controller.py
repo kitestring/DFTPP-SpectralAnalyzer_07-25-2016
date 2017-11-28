@@ -18,6 +18,7 @@ class DFTPP_eval_Frame(wx.Frame):
 		
 	def OnExit(self, event):
 		panel.EventLogger('Saving & Disconnecting from databases.\n\t\tPlease Wait...')
+		panel.dftppDB.conn.commit()
 		panel.dftppDB.conn.close()
 		self.Destroy()
 		
@@ -46,7 +47,7 @@ class DFTPP_eval_Panel(wx.Panel):
 								'CriteriaValue_198': ['m/z = 198: Base Peak, or > 50% of Mass 442', '198/442',26,[49]],
 								'CriteriaValue_199': ['m/z = 199: 5-9% of Mass 198', '199/198',28,[50,51]],
 								'CriteriaValue_275': ['m/z = 275: 10-60% of Base Peak', '275/Base Peak',30,[52,53]],
-								'CriteriaValue_365': ['m/z = 365: < 1% of Mass 198', '365/198',32,[54]],
+								'CriteriaValue_365': ['m/z = 365: > 1% of Mass 198', '365/198',32,[54]],
 								'CriteriaValue_441': ['m/z = 441: present but < 24% of mass 442', '441/442',34,[55,56]],
 								'CriteriaValue_442': ['m/z = 442: Base Peak, or > 50% of Mass 198', '442/198',36,[57]],
 								'CriteriaValue_443': ['m/z = 443: 15-24% of Mass 442', '443/442',38,[58,59]]}
@@ -61,7 +62,7 @@ class DFTPP_eval_Panel(wx.Panel):
 								198: [[0.5], 442, '>='],
 								199: [[0.05,0.09], 198, '>= and <='],
 								275: [[0.1,0.6], 'base_peak_intensity', '>= and <='],
-								365: [[0.01], 'base_peak_intensity', '<='],
+								365: [[0.01], 'base_peak_intensity', '>='],
 								441: [[0.0,0.24], 442, '>= and <='],
 								442: [[0.5], 198, '>='],
 								443: [[0.15,0.24], 442, '>= and <=']}
@@ -69,8 +70,10 @@ class DFTPP_eval_Panel(wx.Panel):
 		
 		
 		#Connect to database
-		fp = 'S:\\005_Saturn\\Analyses\\P01-T060_D2D Stability - II\\DFTPP_Automated_Processing\\dftpp.db'
-		#fp = 'C:\\DFTPP_v1.0\\dftpp.db'
+		#fp = 'S:\\005_Saturn\\Analyses\\P01-T060_D2D Stability - II\\DFTPP_Automated_Processing\\dftpp.db'
+		#fp = 'S:\\005_Saturn\\Analyses\\P01-T060_D2D Stability - II\\DFTPP_Automated_Processing\\dftpp.db'
+		# fp = 'C:\\DFTPP_v1.0\\dftpp.db'
+		fp = os.path.join('C:\\DATAQUEST\\OtherProjects\\DFTPP', 'dftpp.db')
 		self.dftppDB = Database(fp)
 		self.dftppDB_columns = self.dftppDB.Get_Columns('dftpp')
 		
@@ -551,10 +554,20 @@ class DFTPP_eval_Panel(wx.Panel):
 	
 	def display_datetime(self, database_datetime):
 		return datetime.datetime.strptime(database_datetime, '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y %H:%M:%S')
-
+			
+def BackUpProject(source, destination):	
+	call(["robocopy", source, destination, "/mir"])
+		
+print "\n\n\n" + "Start" + "-" * 18 
 		
 app = wx.App(False)
 frame = DFTPP_eval_Frame(None, title="DFTPP Evaluator 1.3")
 panel = DFTPP_eval_Panel(frame)
 frame.Show(True)
 app.MainLoop()
+
+print "END" + "-" * 20 + "\n\n\n"
+
+# BackUpProject("C:\\DFTPP_v1.0", "C:\\DFTPP_v1.0_Backup")
+
+

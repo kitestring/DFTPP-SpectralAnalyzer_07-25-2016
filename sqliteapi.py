@@ -3,18 +3,16 @@ import os
 
 class Database():
 	
-	def __init__(self, filepath, tables):
+	def __init__(self, filepath):
 		FilePath_Exists = os.path.exists(filepath)
 		self.filepath = filepath
 		self.conn = sqlite3.connect(self.filepath)
 		self.cur = self.conn.cursor()
-		self.table_list = tables
 		
 		if not(FilePath_Exists):
-			for table in self.table_list:
-				create_table_statement = '''
-				CREATE TABLE %s(
-				date_time TEXT PRIMARY KEY,
+			self.conn.execute('''
+				CREATE TABLE dftpp(
+				date_time TEXT,
 				file_name TEXT,
 				conc_lvl TEXT,
 				analysis_stage TEXT,
@@ -56,9 +54,11 @@ class Database():
 				Result_442 TEXT,
 				CriteriaValue_443 Double,
 				Result_443 TEXT,
-				Result_Overall TEXT)
-				''' % table
-				self.conn.execute(create_table_statement)
+				Result_Overall TEXT,
+				Instrument_SN TEXT,
+				Instrument_SN_date_time TEXT PRIMARY KEY
+				)
+				''')
 	
 	def Get_Columns(self, table):
 		#returns a tuple list with all the column names from a given db connection
@@ -67,7 +67,7 @@ class Database():
 	
 	def Insert_Query_No_Conditions(self, table, columns, values):
 		self.conn.execute("INSERT INTO %s %s VALUES %s" % (table, tuple(columns), tuple(values)))
-		#self.conn.commit()
+		self.conn.commit()
 		
 	def Update_Query(self, table, columns, values, condition):
 		query_statement = "UPDATE %s" % table
@@ -86,7 +86,7 @@ class Database():
 		#print query_statement
 		
 		self.conn.execute(query_statement)
-		#self.conn.commit()
+		self.conn.commit()
 			
 			
 	
