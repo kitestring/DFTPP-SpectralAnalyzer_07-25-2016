@@ -52,7 +52,7 @@ class DFTPP_eval_Panel(wx.Panel):
 								'CriteriaValue_442': ['m/z = 442: Base Peak, or > 50% of Mass 198', '442/198',36,[57]],
 								'CriteriaValue_443': ['m/z = 443: 15-24% of Mass 442', '443/442',38,[58,59]]}
 								
-		self.LevelConcentrations = {'1': 'DFTPP 100 fg\n', '2': 'DFTPP 1 pg\n', '3': 'DFTPP 10 pg\n', '4': 'DFTPP 50 pg\n'}
+		self.LevelConcentrations = {'1': 'DFTPP 500 fg\n', '2': 'DFTPP 1 pg\n', '3': 'DFTPP 5 pg\n', '4': 'DFTPP 10 pg\n'}
 		
 		self.EvaluationDict =  {51: [[0.1,0.8], 'base_peak_intensity', '>= and <='],
 								68: [[0.02], 69, '<='],
@@ -70,9 +70,6 @@ class DFTPP_eval_Panel(wx.Panel):
 		
 		
 		#Connect to database
-		#fp = 'S:\\005_Saturn\\Analyses\\P01-T060_D2D Stability - II\\DFTPP_Automated_Processing\\dftpp.db'
-		#fp = 'S:\\005_Saturn\\Analyses\\P01-T060_D2D Stability - II\\DFTPP_Automated_Processing\\dftpp.db'
-		# fp = 'C:\\DFTPP_v1.0\\dftpp.db'
 		fp = os.path.join('C:\\DATAQUEST\\OtherProjects\\DFTPP', 'dftpp.db')
 		self.dftppDB = Database(fp)
 		self.dftppDB_columns = self.dftppDB.Get_Columns('dftpp')
@@ -127,7 +124,6 @@ class DFTPP_eval_Panel(wx.Panel):
 		# print 'self.instrument_SN_radiobut.GetSelection(): ', self.instrument_SN_radiobut.GetSelection()
 	
 	def OnMineData(self, event):
-		#jump
 		self.InstSN = str("%s" % self.instrument_SN_radiobut.GetStringSelection())
 		self.dirname = ''
 		
@@ -423,8 +419,6 @@ class DFTPP_eval_Panel(wx.Panel):
 						if col[:13] == 'CriteriaValue':
 							GraphMetaDataDict_keys.append(col)
 							
-					#jump
-					
 					for graph_count, key in enumerate(GraphMetaDataDict_keys):
 					
 						#Add graphs
