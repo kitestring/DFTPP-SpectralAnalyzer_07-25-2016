@@ -114,6 +114,7 @@ PyDev.txt
 /OtherProjects
 /DS_Step2
 *.db
+/txtFiles
 
 # Eclipse 
 .metadata
