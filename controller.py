@@ -6,6 +6,7 @@ import sqlite3
 from subprocess import call
 import datetime
 import os
+from excelmacros import Macros
 
 class DFTPP_eval_Frame(wx.Frame):
 	def __init__(self, parent, title):
@@ -52,7 +53,7 @@ class DFTPP_eval_Panel(wx.Panel):
 								'CriteriaValue_442': ['m/z = 442: Base Peak, or > 50% of Mass 198', '442/198',36,[57]],
 								'CriteriaValue_443': ['m/z = 443: 15-24% of Mass 442', '443/442',38,[58,59]]}
 								
-		self.LevelConcentrations = {'1': 'DFTPP 500 fg\n', '2': 'DFTPP 1 pg\n', '3': 'DFTPP 5 pg\n', '4': 'DFTPP 10 pg\n'}
+		self.LevelConcentrations = {'1': 'DFTPP 5 pg\n', '2': 'DFTPP 10 pg\n', '3': 'DFTPP 50 pg\n', '4': 'DFTPP 100 pg\n'}
 		
 		self.EvaluationDict =  {51: [[0.1,0.8], 'base_peak_intensity', '>= and <='],
 								68: [[0.02], 69, '<='],
@@ -349,6 +350,9 @@ class DFTPP_eval_Panel(wx.Panel):
 		
 	def OnDisplayData(self, event):
 	
+		# create a new marco object
+		ExcelVBAMacros = Macros()
+	
 		self.InstSN = str("%s" % self.instrument_SN_radiobut.GetStringSelection())
 	
 		#Get list of every distinct analytical stage found in the database
@@ -428,9 +432,12 @@ class DFTPP_eval_Panel(wx.Panel):
 											graph_count, chart_title_prefix, self.GraphMetaDataDict[key])
 					
 					
-					
+				# disconnect for excel file	
 				xlsx.disconnect()
 				xlsx = None
+				
+				# apply excel macro which adds the pass fail stats to each sheet in the excel file
+				ExcelVBAMacros.AddPassFailStats(excel_file_namepath)
 
 			message = "Data Report Generated"
 					
