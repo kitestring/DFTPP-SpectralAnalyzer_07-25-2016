@@ -27,16 +27,21 @@ The challenge is that the exact Mass value of the same fragment varies to some d
 #### Sample Raw Data:
 [Day 1 L-3 v-1.txt](https://github.com/kitestring/DFTPP_SpectralAnalyzer/blob/master/Examples/Day%204%20L-4%20v-2_3.txt) Provides an example of a single tab delimited text file exported from one of our chemical analyzers.
 
-Sample Output:
+#### Sample Output:
 
-“SampleData_WellBehaved_IonRatio.png” & “SampleData_Problem_IonRatio.png”  These are examples of two different ion ratios plotted over a ten day duration of the investigation.  The acceptance criteria is overlaid on the graph as a dashed red line.  These plots makes visually assessing the instruments ability to consistently meeting the acceptance criteria very easy.
-Additionally I’ve included a table showing the acceptance criteria of each ion ratio. “DFTPP_Pass-Fail_Criteria.png”.
+![SampleData_WellBehaved_IonRatio.png](https://github.com/kitestring/DFTPP_SpectralAnalyzer/blob/master/Examples/SampleData_WellBehaved_IonRatio.png)
 
-Application Description:
+![SampleData_Problem_IonRatio.png](https://github.com/kitestring/DFTPP_SpectralAnalyzer/blob/master/Examples/SampleData_Problem_IonRatio.png)
+
+These are examples of two different ion ratios plotted over a ten day duration of the investigation.  This frist is an example of a well behaved data set, and the second an example of a problematic data set.  The acceptance criteria is overlaid on the graph as a dashed red line.  These plots makes visually assessing the instruments ability to consistently meeting the acceptance criteria very easy.
+Additionally I’ve included a table showing the acceptance criteria of each ion ratio. 
+
+![DFTPP_Pass-Fail_Criteria.png](https://github.com/kitestring/DFTPP_SpectralAnalyzer/blob/master/Examples/DFTPP_Pass-Fail_Criteria.png)
+
+#### Application Description:
 
 This application has two basic functionalities: 
-
-1) Mine the appropriate spectral data from the text files exported from our chemical analyzers and load it into a SQL database.  
-2) Create data visualizations in new excel file by utilizing the xlswriter python library. 
+1. Mine the appropriate spectral data from the text files exported from our chemical analyzers and load it into a SQL database.  
+1. Create data visualizations in new excel file by utilizing the xlswriter python library. 
 
 Having the ability to continually append the SQL database each day of the investigation, and subsequently, generate new excel files with the latest data, allowed me monitor the data during the course of the experiment.  This turned out to be a critical advantage as I was able to very quickly and easily identify and address any anomalous behavior that popped during the course of the investigation.
