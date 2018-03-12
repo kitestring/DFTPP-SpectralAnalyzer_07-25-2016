@@ -27,7 +27,7 @@ The challenge is that the exact Mass value of the same fragment varies to some d
 #### Sample Raw Data:
 [Day 1 L-3 v-1.txt](https://github.com/kitestring/DFTPP_SpectralAnalyzer/blob/master/Examples/Day%204%20L-4%20v-2_3.txt) Provides an example of a single tab delimited text file exported from one of our chemical analyzers.
 
-#### Sample Output:
+#### Sample Output: (To maintain confidentiality the data examples shown are not “real” and are simulated data sets.)
 
 ![SampleData_WellBehaved_IonRatio.png](https://github.com/kitestring/DFTPP_SpectralAnalyzer/blob/master/Examples/SampleData_WellBehaved_IonRatio.png)
 
